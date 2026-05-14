@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  password     String
+  refreshToken String?  @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Skill {
+  id        Int      @id @default(autoincrement())
+  title     String
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WorkExperience {
+  id             Int      @id @default(autoincrement())
+  company        String
+  role           String
+  period         String
+  description    String?  @db.Text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  skill          SkillWorkExperience[]
+}
+
+model SkillWorkExperience {
+  id              Int      @id @default(autoincrement())
+  skillName       String
+  
+  workId          Int
+  createdAt       DateTime @default(now())
+
+  workExperience  WorkExperience     @relation(fields: [workId], references: [id], onDelete: Cascade)
+}
+
+model Projects {
+  id                  Int      @id @default(autoincrement())
+  title               String
+  category            String
+  image               String?
+  hoverImage          String?
+  description         String?  @db.Text
+  hoverDescription    String?  @db.Text
+  period              String?
+  gradient            String?
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  stack               ProjectStack[]
+}
+
+model ProjectStack {
+  id              Int      @id @default(autoincrement())
+  stackName       String
+  
+  projectId       Int
+  createdAt       DateTime @default(now())
+
+  projects        Projects     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model SettingSection {
+  id          Int      @id @default(autoincrement())
+  key         String   @unique
+  value       String
+  icon        String?
+  url         String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
