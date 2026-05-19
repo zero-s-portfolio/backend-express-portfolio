@@ -21,9 +21,6 @@ export const createContactMessageSchema = z.object({
     .string({
       error: "Subject wajib diisi",
     })
-    .min(3, {
-      message: "Subject minimal 3 karakter",
-    })
     .optional(),
 
   message: z
