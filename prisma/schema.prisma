@@ -12,6 +12,22 @@ datasource db {
   provider = "postgresql"
 }
 
+enum ContactStatus {
+  UNREAD
+  READ
+  REPLIED
+  ARCHIVED
+  SPAM
+}
+enum ContactCategory {
+  GENERAL
+  FREELANCE
+  COLLABORATION
+  CONSULTATION
+  BUG
+}
+
+
 model User {
   id           Int      @id @default(autoincrement())
   name         String
@@ -88,4 +104,30 @@ model SettingSection {
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model contactMessage {
+  id              Int               @id @default(autoincrement())
+
+  name            String            @default("Anonymous")
+  email           String
+  subject         String?
+  message         String            @db.Text
+
+  category        ContactCategory   @default(GENERAL)
+  status          ContactStatus     @default(UNREAD)
+
+  replyMessage    String?           @db.Text
+  repliedAt       DateTime?
+
+  isAutoReplied   Boolean           @default(false)
+  isStarred       Boolean           @default(false)
+
+  attachmentUrl   String?
+
+  ipAddress       String?
+  userAgent       String?
+
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
 }

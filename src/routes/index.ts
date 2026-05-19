@@ -5,6 +5,7 @@ import skillRoute from "./skill.route";
 import workExperienceRoute from "./work-experience.route";
 import projectRoute from "./project.route";
 import settingSectionRoute from "./setting-section.route";
+import contactRoute from "./contact.route";
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use("/skills", skillRoute);
 router.use("/work-experiences", workExperienceRoute);
 router.use("/projects", projectRoute);
 router.use("/setting-sections", settingSectionRoute);
+router.use("/contact", contactRoute);
 
 export default router;
