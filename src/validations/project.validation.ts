@@ -14,22 +14,64 @@ const stackSchema = z.preprocess((value) => {
 
 export const createProjectValidation = z.object({
   title: z.string().min(2, "Title minimal 2 karakter"),
+
   category: z.string().min(2, "Category minimal 2 karakter"),
+
   description: z.string().optional(),
+
   hoverDescription: z.string().optional(),
+
   period: z.string().optional(),
+
   gradient: z.string().optional(),
+
+  url: z
+    .string()
+    .url("URL project tidak valid")
+    .optional()
+    .or(z.literal("")),
+
+  codeDocumentation: z
+    .string()
+    .url("URL dokumentasi/code tidak valid")
+    .optional()
+    .or(z.literal("")),
+
   stacks: stackSchema,
 });
 
 export const updateProjectValidation = z.object({
-  title: z.string().min(2, "Title minimal 2 karakter").optional(),
-  category: z.string().min(2, "Category minimal 2 karakter").optional(),
+  title: z
+    .string()
+    .min(2, "Title minimal 2 karakter")
+    .optional(),
+
+  category: z
+    .string()
+    .min(2, "Category minimal 2 karakter")
+    .optional(),
+
   description: z.string().optional(),
+
   hoverDescription: z.string().optional(),
+
   period: z.string().optional(),
+
   gradient: z.string().optional(),
-  stacks: stackSchema,
+
+  url: z
+    .string()
+    .url("URL project tidak valid")
+    .optional()
+    .or(z.literal("")),
+
+  codeDocumentation: z
+    .string()
+    .url("URL dokumentasi/code tidak valid")
+    .optional()
+    .or(z.literal("")),
+
+  stacks: stackSchema.optional(),
 });
 
 export type CreateProjectInput = z.infer<typeof createProjectValidation>;

@@ -78,6 +78,8 @@ model Projects {
   hoverDescription    String?  @db.Text
   period              String?
   gradient            String?
+  url                 String?
+  codeDocumentation   String?
 
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
