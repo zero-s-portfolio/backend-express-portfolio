@@ -9,7 +9,12 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://app.apidog.com", "https://zero-sensei.my.id"],
+    origin: [
+      "http://localhost:5173",
+      "https://app.apidog.com",
+      "https://zero-sensei.my.id",
+      "https://www.zero-sensei.my.id"
+    ],
     credentials: true,
   })
 );
