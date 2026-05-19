@@ -23,7 +23,8 @@ export const createContactMessageSchema = z.object({
     })
     .min(3, {
       message: "Subject minimal 3 karakter",
-    }),
+    })
+    .optional(),
 
   message: z
     .string({
